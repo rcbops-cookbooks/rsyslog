@@ -22,6 +22,8 @@ include_recipe "rsyslog"
 node.set['rsyslog']['server'] = true
 node.save unless Chef::Config[:solo]
 
+platform_options = node["rsyslog"]["platform"]
+
 directory ::File.dirname(node['rsyslog']['log_dir']) do
   owner "root"
   group "root"
@@ -30,8 +32,8 @@ directory ::File.dirname(node['rsyslog']['log_dir']) do
 end
 
 directory node['rsyslog']['log_dir'] do
-  owner "syslog"
-  group "adm"
+  owner platform_options["rsyslog_user"]
+  group platform_options["rsyslog_group"]
   mode 0755
 end
 
