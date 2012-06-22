@@ -25,3 +25,16 @@ default["rsyslog"]["server_ip"]     = nil
 default["rsyslog"]["server_search"] = "role:loghost"
 default["rsyslog"]["remote_logs"]   = true
 default["rsyslog"]["per_host_dir"]  = "%$YEAR%/%$MONTH%/%$DAY%/%HOSTNAME%"
+
+case platform
+  when "fedora"
+    default["rsyslog"]["platform"] = {
+      "rsyslog_user" => "root",
+      "rsyslog_group" => "root"
+    }
+  when "ubuntu"
+    default["rsyslog"]["platform"] = {
+      "rsyslog_user" => "syslog",
+      "rsyslog_group" => "adm"
+    }
+end
