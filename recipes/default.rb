@@ -17,6 +17,8 @@
 # limitations under the License.
 #
 
+platform_options = node["rsyslog"]["platform"]
+
 if platform?("ubuntu") && node['platform_version'].to_f == 8.04
   apt_repository "hardy-rsyslog-ppa" do
     uri "http://ppa.launchpad.net/a.bono/rsyslog/ubuntu"
@@ -47,8 +49,8 @@ directory "/etc/rsyslog.d" do
 end
 
 directory "/var/spool/rsyslog" do
-  owner "syslog"
-  group "adm"
+  owner platform_options["rsyslog_user"]
+  group platform_options["rsyslog_group"]
   mode 0755
 end
 
