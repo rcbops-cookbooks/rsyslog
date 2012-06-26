@@ -23,13 +23,18 @@ $template PerHostDebug,"<%= @log_dir %>/<%= @per_host_dir %>/debug"
 $template PerHostMessages,"<%= @log_dir %>/<%= @per_host_dir %>/messages"
 
 # Openstack Specific
+<% if @nova_facility %>
 $template PerHostNovaLog, "<%= @log_dir %>/<%= @per_host_dir %>/nova/nova.log"
-$template PerHostGlanceLog, "<%= @log_dir %>/<%= @per_host_dir %>/glance/glance.log"
-$template PerHostKeystoneLog, "<%= @log_dir %>/<%= @per_host_dir %>/keystone/keystone.log"
-
 <%= @nova_facility %>.*                -?PerHostNovaLog
+<% end %>
+<% if @glance_facility %>
+$template PerHostGlanceLog, "<%= @log_dir %>/<%= @per_host_dir %>/glance/glance.log"
 <%= @glance_facility %>.*                -?PerHostGlanceLog
+<% end %>
+<% if @keystone_facility %>
+$template PerHostKeystoneLog, "<%= @log_dir %>/<%= @per_host_dir %>/keystone/keystone.log"
 <%= @keystone_facility %>.*                -?PerHostKeystoneLog
+<% end %>
 
 # TODO: Horizon (jc)
 # $template PerHostHorizonAccessLog, "<%= @log_dir %>/<%= @per_host_dir %>/horizon/horizon-access.log"

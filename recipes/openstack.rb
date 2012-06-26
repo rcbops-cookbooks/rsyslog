@@ -17,24 +17,15 @@
 # limitations under the License.
 #
 
-# find host with role single-controller and grab facility information for glance, keystone, nova.
-# facility must be consistent throughout cluster.
-glance_info = get_settings_by_role("single-controller", "glance")
-glance_facility = glance_info["syslog"]["facility"] unless keystone_info["syslog"]["use_syslog"] == false
-keystone_info = get_settings_by_role("single-controller", "keystone")
-keystone_facility = keystone_info["syslog"]["facility"] unless keystone_info["syslog"]["use_syslog"] == false
-nova_info = get_settings_by_role("single-controller", "nova")
-nova_facility = nova_info["syslog"]["facility"] unless nova_info["syslog"]["use_syslog"] == false
-
 template "/etc/rsyslog.d/35-server-per-host.conf" do
   source "35-server-per-host.conf_openstack.erb"
   backup false
   variables(
     :log_dir => node['rsyslog']['log_dir'],
     :per_host_dir => node['rsyslog']['per_host_dir'],
-    :nova_facility => nova_facility,
-    :glance_facility => glance_facility,
-    :keystone_facility => keystone_facility
+    :nova_facility => node['nova']['syslog']['facility'] unless node['nova']['syslog']['use'] == false,
+    :glance_facility => node['glance']['syslog']['facility'] unless node['glance']['syslog']['use'] == false,
+    :keystone_facility => node['keystone']['syslog']['facility'] unless node['keystone']['facility']['use'] == false
   )
   owner "root"
   group "root"
