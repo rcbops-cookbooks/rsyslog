@@ -21,11 +21,11 @@ template "/etc/rsyslog.d/35-server-per-host.conf" do
   source "35-server-per-host.conf_openstack.erb"
   backup false
   variables(
-    :log_dir => node['rsyslog']['log_dir'],
-    :per_host_dir => node['rsyslog']['per_host_dir'],
-    :nova_facility => node['nova']['syslog']['facility'] unless node['nova']['syslog']['use'] == false,
-    :glance_facility => node['glance']['syslog']['facility'] unless node['glance']['syslog']['use'] == false,
-    :keystone_facility => node['keystone']['syslog']['facility'] unless node['keystone']['facility']['use'] == false
+    :log_dir => node["rsyslog"]["log_dir"],
+    :per_host_dir => node["rsyslog"]["per_host_dir"],
+    :nova_facility => node["nova"]["syslog"]["facility"],
+    :glance_facility => node["glance"]["syslog"]["facility"],
+    :keystone_facility => node["keystone"]["syslog"]["facility"]
   )
   owner "root"
   group "root"
