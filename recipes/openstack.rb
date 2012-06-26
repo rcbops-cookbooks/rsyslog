@@ -19,9 +19,9 @@
 
 # find host with role single-controller and grab facility information for glance, keystone, nova.
 # facility must be consistent throughout cluster.
-glance_info = get_settings_by_role("glance", "glance")
+glance_info = get_settings_by_role("single-controller", "glance")
 glance_facility = glance_info["syslog"]["facility"] unless keystone_info["syslog"]["use_syslog"] == false
-keystone_info = get_settings_by_role("keystone", "keystone")
+keystone_info = get_settings_by_role("single-controller", "keystone")
 keystone_facility = keystone_info["syslog"]["facility"] unless keystone_info["syslog"]["use_syslog"] == false
 nova_info = get_settings_by_role("single-controller", "nova")
 nova_facility = nova_info["syslog"]["facility"] unless nova_info["syslog"]["use_syslog"] == false
