@@ -23,9 +23,9 @@ template "/etc/rsyslog.d/35-server-per-host.conf" do
   variables(
     :log_dir => node["rsyslog"]["log_dir"],
     :per_host_dir => node["rsyslog"]["per_host_dir"],
-    :nova_facility => node["nova"]["syslog"]["facility"],
-    :glance_facility => node["glance"]["syslog"]["facility"],
-    :keystone_facility => node["keystone"]["syslog"]["facility"]
+    :nova_facility => node["nova"]["syslog"]["facility"].split('_').last.downcase,
+    :glance_facility => node["glance"]["syslog"]["facility"].split('_').last.downcase,
+    :keystone_facility => node["keystone"]["syslog"]["facility".split('_').last.downcase
   )
   owner "root"
   group "root"
