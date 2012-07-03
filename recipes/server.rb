@@ -47,7 +47,7 @@ template "/etc/rsyslog.d/35-server-per-host.conf" do
   owner "root"
   group "root"
   mode 0644
-  notifies :restart, "service[rsyslog]"
+  notifies :restart, "service[rsyslog]", :immediately
 end
 
 file "/etc/rsyslog.d/remote.conf" do
