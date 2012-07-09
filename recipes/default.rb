@@ -26,8 +26,8 @@ apt_repository "hardy-rsyslog-ppa" do
   keyserver "keyserver.ubuntu.com"
   key "C0061A4A"
   action :add
-  notifies :run, "execute[apt-get update]", :immediately
-    only_if { platform?("ubuntu") && node['platform_version'].to_f == 8.04 } 
+  #notifies :run, "execute[apt-get update]", :immediately
+  only_if { platform?("ubuntu") && node['platform_version'].to_f == 8.04 } 
 end
 
 package "rsyslog" do
