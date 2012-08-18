@@ -27,7 +27,7 @@ default["rsyslog"]["remote_logs"]   = true
 default["rsyslog"]["per_host_dir"]  = "%$YEAR%/%$MONTH%/%$DAY%/%HOSTNAME%"
 
 case platform
-  when "fedora", "redhat"
+  when "fedora", "redhat", "centos"
     default["rsyslog"]["platform"] = {
       "rsyslog_user" => "root",
       "rsyslog_group" => "root"
