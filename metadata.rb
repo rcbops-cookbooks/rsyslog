@@ -11,6 +11,9 @@ recipe            "rsyslog::server", "Sets up an rsyslog server"
 
 supports          "ubuntu", ">= 8.04"
 supports          "debian", ">= 5.0"
+supports          "fedora"
+supports          "centos"
+supports          "redhat"
 
 attribute "rsyslog",
   :display_name => "Rsyslog",

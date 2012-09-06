@@ -39,6 +39,7 @@ cookbook_file "/etc/default/rsyslog" do
   owner "root"
   group "root"
   mode 0644
+  only_if { platform?("ubuntu") }
 end
 
 directory "/etc/rsyslog.d" do
