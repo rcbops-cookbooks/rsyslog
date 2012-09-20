@@ -17,23 +17,23 @@
 # limitations under the License.
 #
 
-default["rsyslog"]["log_dir"]       = "/srv/rsyslog"
-default["rsyslog"]["server"]        = false
-default["rsyslog"]["protocol"]      = "tcp"
-default["rsyslog"]["port"]          = "514"
-default["rsyslog"]["server_ip"]     = nil
-default["rsyslog"]["server_search"] = "role:loghost"
-default["rsyslog"]["remote_logs"]   = true
-default["rsyslog"]["per_host_dir"]  = "%$YEAR%/%$MONTH%/%$DAY%/%HOSTNAME%"
+default["rsyslog"]["log_dir"]       = "/srv/rsyslog"                        # node_attribute
+default["rsyslog"]["server"]        = false                                 # node_attribute
+default["rsyslog"]["protocol"]      = "tcp"                                 # node_attribute
+default["rsyslog"]["port"]          = "514"                                 # node_attribute
+default["rsyslog"]["server_ip"]     = nil                                   # node_attribute (inherited from cluster?)
+default["rsyslog"]["server_search"] = "role:loghost"                        # node_attribute
+default["rsyslog"]["remote_logs"]   = true                                  # node_attribute
+default["rsyslog"]["per_host_dir"]  = "%$YEAR%/%$MONTH%/%$DAY%/%HOSTNAME%"  # node_attribute
 
 case platform
   when "fedora", "redhat", "centos"
-    default["rsyslog"]["platform"] = {
+    default["rsyslog"]["platform"] = {                                      # node_attribute
       "rsyslog_user" => "root",
       "rsyslog_group" => "root"
     }
   when "ubuntu"
-    default["rsyslog"]["platform"] = {
+    default["rsyslog"]["platform"] = {                                      # node_attribute
       "rsyslog_user" => "syslog",
       "rsyslog_group" => "adm"
     }
