@@ -27,20 +27,39 @@ apt_repository "hardy-rsyslog-ppa" do
   key "C0061A4A"
   action :add
   #notifies :run, "execute[apt-get update]", :immediately
-  only_if { platform?("ubuntu") && node['platform_version'].to_f == 8.04 } 
+  only_if { platform?("ubuntu") && node['platform_version'].to_f == 8.04 }
 end
 
 package "rsyslog" do
   action :install
 end
 
-cookbook_file "/etc/default/rsyslog" do
-  source "rsyslog.default"
-  owner "root"
-  group "root"
-  mode 0644
-  only_if { platform?("ubuntu") }
-end
+case node['platform']
+  when "debian", "ubuntu"
+
+    user "syslog" do
+      username platform_options["rsyslog_user"]
+      home "/home/syslog"
+      shell "/bin/false"
+      system true
+      action :create
+    end
+
+    cookbook_file "/etc/default/rsyslog" do
+      source "rsyslog.default"
+      owner "root"
+      group "root"
+      mode 0644
+    end
+
+    template "/etc/rsyslog.d/50-default.conf" do
+      source "50-default.conf.erb"
+      backup false
+      owner "root"
+      group "root"
+      mode 0644
+    end
+  end
 
 directory "/etc/rsyslog.d" do
   owner "root"
@@ -63,14 +82,6 @@ template "/etc/rsyslog.conf" do
   notifies :restart, "service[rsyslog]", :immediately
 end
 
-template "/etc/rsyslog.d/50-default.conf" do
-  source "50-default.conf.erb"
-  backup false
-  owner "root"
-  group "root"
-  mode 0644
-  only_if { platform?("ubuntu") }
-end
 
 service "rsyslog" do
   service_name "rsyslogd" if platform?("arch")
