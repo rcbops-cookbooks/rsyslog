@@ -23,7 +23,7 @@ apt_repository "hardy-rsyslog-ppa" do
   uri "http://ppa.launchpad.net/a.bono/rsyslog/ubuntu"
   distribution "hardy"
   components ["main"]
-  keyserver "keyserver.ubuntu.com"
+  keyserver "hkp://keyserver.ubuntu.com:80"
   key "C0061A4A"
   action :add
   #notifies :run, "execute[apt-get update]", :immediately
