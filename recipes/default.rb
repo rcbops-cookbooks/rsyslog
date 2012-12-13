@@ -52,13 +52,6 @@ case node['platform']
       mode 0644
     end
 
-    template "/etc/rsyslog.d/50-default.conf" do
-      source "50-default.conf.erb"
-      backup false
-      owner "root"
-      group "root"
-      mode 0644
-    end
   end
 
 directory "/etc/rsyslog.d" do
@@ -71,6 +64,15 @@ directory "/var/spool/rsyslog" do
   owner platform_options["rsyslog_user"]
   group platform_options["rsyslog_group"]
   mode 0755
+end
+
+template "/etc/rsyslog.d/50-default.conf" do
+  source "50-default.conf.erb"
+  backup false
+  owner "root"
+  group "root"
+  mode 0644
+  notifies :restart, "service[rsyslog]", :delayed
 end
 
 template "/etc/rsyslog.conf" do
