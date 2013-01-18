@@ -30,5 +30,5 @@ template "/etc/rsyslog.d/35-server-per-host.conf" do
   owner "root"
   group "root"
   mode 0644
-  notifies :restart, "service[rsyslog]", :immediately
+  notifies :reload, "service[rsyslog]", :immediately
 end

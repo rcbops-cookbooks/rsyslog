@@ -72,7 +72,7 @@ template "/etc/rsyslog.d/50-default.conf" do
   owner "root"
   group "root"
   mode 0644
-  notifies :restart, "service[rsyslog]", :delayed
+  notifies :reload, "service[rsyslog]", :delayed
 end
 
 template "/etc/rsyslog.conf" do
@@ -81,12 +81,12 @@ template "/etc/rsyslog.conf" do
   group "root"
   mode 0644
   variables(:protocol => node['rsyslog']['protocol'])
-  notifies :restart, "service[rsyslog]", :immediately
+  notifies :reload, "service[rsyslog]", :immediately
 end
 
 
 service "rsyslog" do
   service_name "rsyslogd" if platform?("arch")
-  supports :restart => true, :reload => true
+  supports :reload=> true, :reload => true
   action [:enable, :start]
 end
