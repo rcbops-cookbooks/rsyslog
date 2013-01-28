@@ -89,4 +89,5 @@ service "rsyslog" do
   service_name "rsyslogd" if platform?("arch")
   supports :reload=> true, :reload => true
   action [:enable, :start]
+  ignore_failure true 
 end
