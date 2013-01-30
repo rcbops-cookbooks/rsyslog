@@ -3,6 +3,10 @@
 <% if not node["custom_template_banner"].nil? %>
 <%= node["custom_template_banner"] %>
 <% end %>
+
+$FileOwner root
+$FileGroup adm
+
 #  Default rules for rsyslog.
 #
 #			For more information see rsyslog.conf(5) and /etc/rsyslog.conf
