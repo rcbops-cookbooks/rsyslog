@@ -23,11 +23,12 @@ $ModLoad imklog   # provides kernel logging support (previously done by rklogd)
 <% when "tcp" -%>
 $ModLoad imtcp
 $InputTCPServerRun <%= node['rsyslog']['port'] %>
-<% when "udp" -%>
+<% end -%>
+<% end -%>
+
+# Always run the UDP listener for local syslog
 $ModLoad imudp
 $UDPServerRun <%= node['rsyslog']['port'] %>
-<% end -%>
-<% end -%>
 
 ###########################
 #### GLOBAL DIRECTIVES ####
@@ -38,6 +39,7 @@ $UDPServerRun <%= node['rsyslog']['port'] %>
 # To enable high precision timestamps, comment out the following line.
 #
 $ActionFileDefaultTemplate RSYSLOG_TraditionalFileFormat
+$EscapeControlCharactersOnReceive off
 
 # Filter duplicated messages
 $RepeatedMsgReduction on
@@ -50,8 +52,6 @@ $WorkDirectory /var/spool/rsyslog
 #
 # Set the default permissions for all log files.
 #
-$FileOwner syslog
-$FileGroup adm
 $FileCreateMode 0640
 $DirCreateMode 0755
 $Umask 0022

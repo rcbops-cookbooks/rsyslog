@@ -40,12 +40,12 @@ end
     group "root"
     mode 0644
     only_if { node['rsyslog']['remote_logs'] && !rsyslog_server.nil? }
-    notifies :reload, "service[rsyslog]", :immediately
+    notifies :restart, "service[rsyslog]", :immediately
   end
 
   file "/etc/rsyslog.d/server.conf" do
     action :delete
-    notifies :reload, "service[rsyslog]"
+    notifies :restart, "service[rsyslog]"
     only_if do ::File.exists?("/etc/rsyslog.d/server.conf") end
   end
 end
