@@ -25,6 +25,7 @@ default["rsyslog"]["server_ip"]     = nil                                   # no
 default["rsyslog"]["server_search"] = "role:loghost"                        # node_attribute
 default["rsyslog"]["remote_logs"]   = true                                  # node_attribute
 default["rsyslog"]["per_host_dir"]  = "%$YEAR%/%$MONTH%/%$DAY%/%HOSTNAME%"  # node_attribute
+default["rsyslog"]["max_message_size"] = "2k"
 
 case platform
   when "fedora", "redhat", "centos", "scientific", "amazon"
