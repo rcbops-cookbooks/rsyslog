@@ -1,3 +1,9 @@
+WARNING
+=======
+**** __THIS COOKBOOK SHOULD NO LONGER BE USED__ ****
+
+It is only left here for reference purposes.  The rcbops chef-cookbooks now use the opscode [rsyslog](https://github.com/opscode-cookbooks/rsyslog) cookbook.
+
 Support
 =======
 
